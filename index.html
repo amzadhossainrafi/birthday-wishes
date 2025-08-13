@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Rukayea! 💝</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #ff1493, 0 0 30px #ff69b4; }
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        button:hover {
+            background: #ff6b81;
+            transform: scale(1.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .wish {
+            animation: fadeIn 2s;
+            font-size: 1.3em;
+            line-height: 1.6;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .rose {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff1493" d="M12 2C13.1 2 14 2.9 14 4s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6 6c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-8 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2z"/></svg>');
+            background-size: cover;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: red;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-100px) rotate(10deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday, Rukayea! 💖</h1>
+        <p>Today is all about you, Bristy! 🎉</p>
+        
+        <button id="magicButton">Click for Eternal Love ✨</button>
+        
+        <div id="birthdayWish" class="hidden wish">
+            <p>Dear <strong>Rukayea Islam Bristy</strong>,</p>
+            <p>Like these endless roses and hearts, my wishes for you will never stop. 🌹</p>
+            <p>May your 27th year be as magical as you are.</p>
+            <p>Forever yours,<br><strong>Amzad Hossain Rafi</strong> 😊</p>
+        </div>
+    </div>
+
+    <script>
+        // Magic Button (Infinite Roses + Hearts)
+        document.getElementById('magicButton').addEventListener('click', function() {
+            document.getElementById('birthdayWish').classList.remove('hidden');
+            this.style.display = 'none';
+            startInfiniteLove();
+        });
+
+        // Infinite Rose Petals (never stop!)
+        function createRosePetals() {
+            const rose = document.createElement('div');
+            rose.className = 'rose';
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.top = -20 + 'px';
+            rose.style.opacity = Math.random() * 0.7 + 0.3;
+            rose.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(rose);
+        }
+
+        // Infinite Floating Hearts (never stop!)
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 6 + 4 + 's';
+            document.body.appendChild(heart);
+        }
+
+        // Start eternal love animation
+        function startInfiniteLove() {
+            // Create new roses/hearts every 300ms (forever)
+            setInterval(createRosePetals, 300);
+            setInterval(createHearts, 500);
+        }
+    </script>
+</body>
+</html>
