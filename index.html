@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: #0a0a1a;
             text-align: center;
             color: white;
             margin: 0;
@@ -17,21 +17,94 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
+        }
+        /* Rain effect */
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .drop {
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            background: linear-gradient(transparent, #a3f7ff);
+            animation: rain linear infinite;
+        }
+        @keyframes rain {
+            0% { transform: translateY(-100vh); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        /* Moon */
+        .moon {
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: #f5f3ce;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #f5f3ceaa;
+            z-index: 0;
+        }
+        .moon::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+            background: #0a0a1a;
+            border-radius: 50%;
+            box-shadow: 
+                30px -10px 0 2px #0a0a1a,
+                15px -25px 0 5px #0a0a1a,
+                40px 10px 0 -1px #0a0a1a;
+        }
+        /* Stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+            z-index: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .big-star {
+            position: absolute;
+            color: #ffeb3b;
+            font-size: 24px;
+            animation: pulse 4s infinite;
+            z-index: 0;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
         }
         .container {
             background: rgba(0, 0, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 107, 255, 0.5);
             max-width: 600px;
             position: relative;
             z-index: 10;
+            border: 1px solid #ff6bff;
         }
         h1 {
             font-size: 3em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px #000;
             animation: glow 2s infinite alternate;
+            color: #ff9ec6;
         }
         @keyframes glow {
             from { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
@@ -51,6 +124,7 @@
             cursor: pointer;
             transition: all 0.3s;
             margin: 10px;
+            box-shadow: 0 0 15px rgba(255, 107, 255, 0.7);
         }
         button:hover {
             background: #ff6b81;
@@ -75,7 +149,7 @@
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff1493" d="M12 2C13.1 2 14 2.9 14 4s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6 6c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-8 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2z"/></svg>');
             background-size: cover;
             animation: fall linear infinite;
-            z-index: 1;
+            z-index: 2;
         }
         @keyframes fall {
             to { transform: translateY(100vh) rotate(360deg); }
@@ -85,7 +159,7 @@
             font-size: 20px;
             color: red;
             animation: float 6s ease-in-out infinite;
-            z-index: 1;
+            z-index: 2;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
@@ -94,21 +168,70 @@
     </style>
 </head>
 <body>
+    <div class="moon"></div>
+    <div class="rain" id="rain"></div>
     <div class="container">
         <h1>Happy Birthday, Rukayea! 💖</h1>
-        <p>Today is all about you, Bristy! 🎉</p>
+        <p>Tonight is all about you, Bristy! 🌙✨</p>
         
         <button id="magicButton">Click for Eternal Love ✨</button>
         
         <div id="birthdayWish" class="hidden wish">
             <p>Dear <strong>Rukayea Islam Bristy</strong>,</p>
-            <p>Like these endless roses and hearts, my wishes for you will never stop. 🌹</p>
-            <p>May your 27th year be as magical as you are.</p>
+            <p>Like these roses dancing under the moonlight, my love for you shines eternally. 🌹</p>
+            <p>May your 27th year be as radiant as this moonlit night.</p>
             <p>Forever yours,<br><strong>Amzad Hossain Rafi</strong> 😊</p>
         </div>
     </div>
 
     <script>
+        // Create rain
+        for (let i = 0; i < 100; i++) {
+            createRainDrop();
+        }
+        
+        function createRainDrop() {
+            const drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.height = Math.random() * 20 + 10 + 'px';
+            drop.style.animationDuration = Math.random() * 0.5 + 0.5 + 's';
+            drop.style.opacity = Math.random() * 0.6 + 0.2;
+            document.getElementById('rain').appendChild(drop);
+        }
+
+        // Create stars (small twinkling)
+        for (let i = 0; i < 100; i++) {
+            createStar();
+        }
+        
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 50 + 'vh'; // Only top half of sky
+            star.style.width = Math.random() * 3 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.body.appendChild(star);
+        }
+
+        // Create 5 big twinkling stars (constellations)
+        for (let i = 0; i < 5; i++) {
+            createBigStar();
+        }
+        
+        function createBigStar() {
+            const star = document.createElement('div');
+            star.className = 'big-star';
+            star.innerHTML = '★';
+            star.style.left = Math.random() * 80 + 10 + 'vw';
+            star.style.top = Math.random() * 40 + 10 + 'vh';
+            star.style.animationDelay = Math.random() * 4 + 's';
+            document.body.appendChild(star);
+        }
+
         // Magic Button (Infinite Roses + Hearts)
         document.getElementById('magicButton').addEventListener('click', function() {
             document.getElementById('birthdayWish').classList.remove('hidden');
